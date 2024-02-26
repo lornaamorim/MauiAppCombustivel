@@ -1,4 +1,8 @@
-﻿namespace MauiAppCombustivel
+﻿using Microsoft.Maui;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
+
+namespace MauiAppCombustivel
 {
     public partial class MainPage : ContentPage
     {
@@ -9,17 +13,23 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs e)
         {
-            count++;
+            double gasolina = Convert.ToDouble(txt_gasolina.Text);
+            double etanol = Convert.ToDouble(txt_etanol.Text);
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+            string msg = $"Compensa mais ";
+
+            if (etanol > (gasolina * 0.7))
+            {
+                msg += "a gasolina";
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
+            {
+                msg += "o etanol";
+            }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            DisplayAlert("Resultado", msg, "Fechar");
         }
     }
-
 }
